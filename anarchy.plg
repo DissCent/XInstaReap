@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+<h1>Erstellungsprotokoll</h1>
+<h3>
+--------------------Konfiguration: anarchy - Win32 Release--------------------
+</h3>
+<h3>Befehlszeilen</h3>
+Erstellen der temporären Datei  "C:\users\philipp\Temp\RSP58a9.tmp" mit Inhalten
+[
+/nologo /MT /W3 /GX /O2 /I "." /I "../../include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "ANARCHY_EXPORTS" /Fp"Release/anarchy.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"Z:\tmp\chroot\d3sdk\src\instareap\Anarchy.cpp"
+]
+Creating command line "cl.exe @C:\users\philipp\Temp\RSP58a9.tmp" 
+Erstellen der temporären Datei  "C:\users\philipp\Temp\RSP58aa.tmp" mit Inhalten
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"Release/anarchy.pdb" /machine:I386 /out:"Release/anarchy.dll" /implib:"Release/anarchy.lib" 
+.\Release\Anarchy.obj
+..\..\lib\Dmfc.lib
+]
+Erstellen der Befehlzeile "link.exe @C:\users\philipp\Temp\RSP58aa.tmp"
+<h3>Ausgabefenster</h3>
+Kompilierung läuft...
+Anarchy.cpp
+Linker-Vorgang läuft...
+   Bibliothek Release/anarchy.lib und Objekt Release/anarchy.exp wird erstellt
+
+
+
+<h3>Ergebnisse</h3>
+anarchy.dll - 0 Fehler, 0 Warnung(en)
+</pre>
+</body>
+</html>
