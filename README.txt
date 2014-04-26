@@ -83,9 +83,9 @@ A: As for MSVC 6, you will need to buy a copy from eBay. As for GCC on Linux,
 Credits
 :::::::
 
--Grim Günter ("Grim") - original version of InstaReap - big thanks to you!
+-Daniel ("Grim") - original version of InstaReap - big thanks to you!
 -Philipp Lorenz ("VEX-D.Cent") - changes for XInstaReap
--"VEX-Tom" - testing
+-VEX clan - thank you for testing :)
 
 
 Contact
