@@ -424,7 +424,7 @@ void SendPlayerShots(int pnum)
 
 void OnWeaponFired(object *weapon_obj,object *shooter)
 {
-	if (DMFCBase->GetLocalRole() == LR_SERVER)
+	if (DMFCBase->GetLocalRole() == LR_SERVER && weapon_obj->id != FLARE_INDEX)
 	{
 		struct timeval now;
 		gettimeofday(&now, NULL);
