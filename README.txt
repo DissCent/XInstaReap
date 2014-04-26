@@ -40,6 +40,14 @@ Installation
 Simply put the file XInstaReap.d3m into your "netgames" folder. On Linux, you
 will most likely also need the file "dmfc.so".
 
+If you also want to install the 30 PPS version, put the file XInstaReap30.d3m
+into your netgames folder. You will also need:
+
+-on Windows: XInstaReap_o.dll
+-on Linux: XInstaReap_o.so
+
+in your netgames folder.
+
 
 Compiling
 :::::::::
