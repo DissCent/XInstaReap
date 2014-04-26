@@ -25,7 +25,6 @@ RIGHTS RESERVED.
 
 #define TXT(d)	GetString(d)
 
-
 #define TXT_DEATH1		TXT(0)	//"%s got blasted by %s"
 #define TXT_DEATH2		TXT(1)	//"%s knows %s is his god"
 #define TXT_DEATH3		TXT(2)	//"%s sucks %s's milk"
