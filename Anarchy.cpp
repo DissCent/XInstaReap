@@ -68,7 +68,7 @@ player *dPlayers;
 #define SPID_CHANGEWREQUEST 3
 #define SPID_RECEIVECHEAT 7
 
-int version_num = 21;
+int version_num = 22;
 bool first_shot = true;
 float save_reload = 0;
 int MassIndex=-1;
@@ -237,7 +237,7 @@ void ReceiveCheatMessage(ubyte *data)
 	iPnum = MultiGetInt(data, &iCount);
 	
 	player *plrs = &(DMFCBase->GetPlayers())[iPnum];
-	DLLAddHUDMessage("%s was caught cheating - bye bye!", plrs->callsign);
+	DLLAddHUDMessage("%s was caught cheating or experiences severe lags - kicking...", plrs->callsign);
 }
 
 void SendCheatMessage(int pnum)
@@ -431,11 +431,11 @@ void OnWeaponFired(object *weapon_obj,object *shooter)
 
 		long recentShot = (now.tv_sec * (unsigned int)1e6 + now.tv_usec);
 
-		if ((recentShot - playerLastShots[shooter->id]) < shipShootIntervals[shooter->id])
+		if ((recentShot - playerLastShots[shooter->id]) < shipShootIntervals[shooter->id] || weapon_obj->id != MASSDRIVER_INDEX)
 		{
 			player *plrs = &(DMFCBase->GetPlayers())[shooter->id];
 			SendCheatMessage(shooter->id);
-			DLLAddHUDMessage("%s was caught cheating!", plrs->callsign);
+			DLLAddHUDMessage("%s was caught cheating or experiences severe lagging - kicking...", plrs->callsign);
 			DLLMultiDisconnectPlayer(shooter->id);
 		}
 		else
@@ -1399,6 +1399,9 @@ void OnInterval(void)
 				ChangeWeapon(pnum,MASSDRIVER_INDEX);
 				RemWeaponFromPlayer(pnum,CONCUSSION_INDEX);
 				im_dead = false;
+				player *player = &(DMFCBase->GetPlayers())[pnum];
+				ship *ship = &(DMFCBase->GetShips())[player->ship_index];
+				ship->static_wb[6].gp_fire_wait[0] = 0.01f;
 			}
 	}
 	
@@ -1430,6 +1433,9 @@ void OnInterval(void)
 			ChangeWeapon(pnum,MASSDRIVER_INDEX);
 			RemWeaponFromPlayer(pnum,CONCUSSION_INDEX);
 			im_observer = false;
+			player *player = &(DMFCBase->GetPlayers())[pnum];
+			ship *ship = &(DMFCBase->GetShips())[player->ship_index];
+			ship->static_wb[6].gp_fire_wait[0] = 0.01f;
 		}
 	}
 
