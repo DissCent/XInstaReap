@@ -10,7 +10,7 @@ just one hit.
 What are the differences between XInstaReap and InstaReap?
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-XInstaReap currently has the following changes (as of version 21):
+XInstaReap currently has the following changes (as of version 22):
 
 Bugfixes:
 	-When shooting the first time, the weapon changes to the mass driver
@@ -69,6 +69,9 @@ A: That's because I was too lazy to rename the project in MSVC so if you build
    rename to XInstaReap.dll. The Linux Makefile automatically builds the file
    XInstaReap.so.
 
+Q: What can I do with this source code?
+A: Anything you want, except for selling it or binaries of it (see below).
+
 Q: What is the license of the mod?
 A: Since XInstaReap and InstaReap were built from the original mod "Anarchy" by
    Outrage, this mod uses the Outrage License which can be found in the header
@@ -93,5 +96,5 @@ Contact
 
 You can either contact me on the project page of XInstaReap or on IRC:
 
-Homepage: https://www.github.com/WindohsCrasher/XInstaReap
+Project page: https://www.github.com/WindohsCrasher/XInstaReap
 IRC: irc.descentforum.net, channel "#Descent", player "VEX-D_Cent"

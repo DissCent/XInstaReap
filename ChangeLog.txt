@@ -1,0 +1,12 @@
+Revision 22
+===========
+
+-Fixed behavior of switching weapons after respawning blocking the first shot
+-Modified cheat message so people who experience a lot of lag (which is
+ definitely not cheating) will not be blamed to be cheaters
+
+
+Revision 21
+===========
+
+-First public source code release
