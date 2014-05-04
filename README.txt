@@ -37,16 +37,25 @@ New restrictions:
 Installation
 ::::::::::::
 
-Simply put the file XInstaReap.d3m into your "netgames" folder. On Linux, you
-will most likely also need the file "dmfc.so".
+Linux
+-----
 
-If you also want to install the 30 PPS version, put the file XInstaReap30.d3m
-into your netgames folder. You will also need:
+-Extract the files XInstaReap.d3m, XInstaReap30.d3m and XInstaReap_o.so to
+ ~/.loki/descent3/netgames/
+-Copy the library file dmfc.so to /usr/local/lib
 
--on Windows: XInstaReap_o.dll
--on Linux: XInstaReap_o.so
 
-in your netgames folder.
+Windows
+-------
+
+-Extract the files XInstaReap.d3m, XInstaReap30.d3m and XInstaReap_o.dll to
+ <Your Descent3 installation>\netgames\
+
+
+Source code
+:::::::::::
+
+The code of XInstaReap is available to anyone on its project page (see bottom).
 
 
 Compiling
