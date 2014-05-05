@@ -1,3 +1,10 @@
+Revision 23
+===========
+
+-Fixed weapon reload time not restoring after first shot
+-Added "cheater" sound notification if cheats were detected
+
+
 Revision 22
 ===========
 

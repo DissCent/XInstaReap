@@ -10,7 +10,7 @@ just one hit.
 What are the differences between XInstaReap and InstaReap?
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-XInstaReap currently has the following changes (as of version 22):
+XInstaReap currently has the following changes (as of version 23):
 
 Bugfixes:
 	-When shooting the first time, the weapon changes to the mass driver
@@ -22,7 +22,7 @@ New features:
 	-Free afterburner coolers for everyone!
 	-Cheat prevention on server side by measuring the time between two
 	 shots per player - cheaters will be kicked and all players will be
-	 notified
+	 notified (by using text and the classic "Cheater!" sound)
 	-All shots are now displayed in the color of the player who is shooting
 
 Removed stuff:
@@ -32,6 +32,9 @@ New restrictions:
 	-XInstaReap only supports up to 16 players because of not having enough
 	 applicable weapons for coloring shots (starting a server configured
 	 for more than 16 players will automatically set max players to 16)
+	-You should use a dedicated server for this mod to work probably. If
+         you start a server ingame, some features like cheat protection might
+         not work properly
 
 
 Installation

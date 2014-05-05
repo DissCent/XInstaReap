@@ -68,7 +68,7 @@ player *dPlayers;
 #define SPID_CHANGEWREQUEST 3
 #define SPID_RECEIVECHEAT 7
 
-int version_num = 22;
+int version_num = 23;
 bool first_shot = true;
 float save_reload = 0;
 int MassIndex=-1;
@@ -93,6 +93,8 @@ float backupLifeTime[32];
 light_info backupLightInfo[32];
 short backupSpawnHandle[32];
 short backupScorchHandle[32];
+
+int sndCheaterHandle = -1;
 
 /*
 Our DMFC Interface.  All Interaction with DMFC is via this
@@ -238,6 +240,7 @@ void ReceiveCheatMessage(ubyte *data)
 	
 	player *plrs = &(DMFCBase->GetPlayers())[iPnum];
 	DLLAddHUDMessage("%s was caught cheating or experiences severe lags - kicking...", plrs->callsign);
+	DLLPlay2dSound(sndCheaterHandle);
 }
 
 void SendCheatMessage(int pnum)
@@ -431,11 +434,12 @@ void OnWeaponFired(object *weapon_obj,object *shooter)
 
 		long recentShot = (now.tv_sec * (unsigned int)1e6 + now.tv_usec);
 
-		if ((recentShot - playerLastShots[shooter->id]) < shipShootIntervals[shooter->id] || weapon_obj->id != MASSDRIVER_INDEX)
+		if ((recentShot - playerLastShots[shooter->id]) < shipShootIntervals[shooter->id] || (weapon_obj->id != MASSDRIVER_INDEX && weapon_obj->id != LASER_INDEX))
 		{
 			player *plrs = &(DMFCBase->GetPlayers())[shooter->id];
 			SendCheatMessage(shooter->id);
 			DLLAddHUDMessage("%s was caught cheating or experiences severe lagging - kicking...", plrs->callsign);
+			DLLPlay2dSound(sndCheaterHandle);
 			DLLMultiDisconnectPlayer(shooter->id);
 		}
 		else
@@ -450,7 +454,7 @@ void OnWeaponFired(object *weapon_obj,object *shooter)
 			ship *ship = &(DMFCBase->GetShips())[player->ship_index];
 
 			ship->static_wb[6].gp_fire_wait[0] = save_reload;
-			
+
 			first_shot = false;
 		}
 	}
@@ -1048,6 +1052,8 @@ void DLLFUNCCALL DLLGameInit (int *api_func,ubyte *all_ok,int num_teams_to_use)
 
 	dPlayers = DMFCBase->GetPlayers();
 
+	sndCheaterHandle = DLLFindSoundName("Cheater!");
+
 	// Initialize OSIRIS  old osiris stuff
 	/*tOSIRISModuleInit *mi = DMFCBase->GetOsirisModuleData();
 	osicommon_Initialize(mi);*/
@@ -1392,6 +1398,7 @@ void OnInterval(void)
 			if(pnum==DMFCBase->GetPlayerNum() || DMFCBase->GetLocalRole()==LR_SERVER)
 			{
 				// I'm respawning, so give weapons.
+				first_shot = true;
 				SendChangeWeaponsRequest(pnum);
 				AddWeaponToPlayer(pnum,MASSDRIVER_INDEX,15);
 				DLLInvAddTypeID(pnum,OBJ_POWERUP,DLLFindObjectIDName("Afterburner"),-1,-1,0,GetD3String(809));
@@ -1436,6 +1443,7 @@ void OnInterval(void)
 			player *player = &(DMFCBase->GetPlayers())[pnum];
 			ship *ship = &(DMFCBase->GetShips())[player->ship_index];
 			ship->static_wb[6].gp_fire_wait[0] = 0.01f;
+			first_shot = true;
 		}
 	}
 
