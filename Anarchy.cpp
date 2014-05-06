@@ -31,6 +31,7 @@ RIGHTS RESERVED.
 	#include <sys/time.h>
 #endif
 
+#include <limits.h>
 #include <time.h>
 
 #ifdef WIN32
@@ -75,8 +76,8 @@ int MassIndex=-1;
 
 int PlayerColorIndexes[32];
 
-long shipShootIntervals[32];
-long playerLastShots[32];
+unsigned long shipShootIntervals[32];
+unsigned long playerLastShots[32];
 
 // backups for manipulated weapons
 int backupSounds[32];
@@ -432,9 +433,16 @@ void OnWeaponFired(object *weapon_obj,object *shooter)
 		struct timeval now;
 		gettimeofday(&now, NULL);
 
-		long recentShot = (now.tv_sec * (unsigned int)1e6 + now.tv_usec);
+		unsigned long recentShot = (now.tv_sec * (unsigned int)1e6 + now.tv_usec);
+		unsigned long difference;
 
-		if ((recentShot - playerLastShots[shooter->id]) < shipShootIntervals[shooter->id] || (weapon_obj->id != MASSDRIVER_INDEX && weapon_obj->id != LASER_INDEX))
+		// workaround for time running over the buffer of ULONG_MAX and starting at 0 again
+		if (recentShot < playerLastShots[shooter->id])
+			difference = ULONG_MAX - playerLastShots[shooter->id] + recentShot;
+		else
+			difference = recentShot - playerLastShots[shooter->id];
+
+		if (difference < shipShootIntervals[shooter->id] || (weapon_obj->id != MASSDRIVER_INDEX && weapon_obj->id != LASER_INDEX))
 		{
 			player *plrs = &(DMFCBase->GetPlayers())[shooter->id];
 			SendCheatMessage(shooter->id);
@@ -1588,7 +1596,7 @@ void OnClientPlayerEntersGame(int player_num)
 		}
 		else if (DMFCBase->GetLocalRole()==LR_SERVER)
 		{
-			shipShootIntervals[player_num] = (long)(ship->static_wb[6].gp_fire_wait[0]*1000000);
+			shipShootIntervals[player_num] = (unsigned long)(ship->static_wb[6].gp_fire_wait[0]*1000000);
 		}
 	}
 			
