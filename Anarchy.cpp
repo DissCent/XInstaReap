@@ -69,7 +69,7 @@ player *dPlayers;
 #define SPID_CHANGEWREQUEST 3
 #define SPID_RECEIVECHEAT 7
 
-int version_num = 23;
+int version_num = 25;
 bool first_shot = true;
 float save_reload = 0;
 int MassIndex=-1;
@@ -428,7 +428,7 @@ void SendPlayerShots(int pnum)
 
 void OnWeaponFired(object *weapon_obj,object *shooter)
 {
-	if (DMFCBase->GetLocalRole() == LR_SERVER && weapon_obj->id != FLARE_INDEX)
+	if (DMFCBase->GetLocalRole() == LR_SERVER && weapon_obj->id != FLARE_INDEX && weapon_obj->id != 108) // 108 --> black pyro flare
 	{
 		struct timeval now;
 		gettimeofday(&now, NULL);
@@ -454,7 +454,7 @@ void OnWeaponFired(object *weapon_obj,object *shooter)
 			playerLastShots[shooter->id] = recentShot;
 	}
 
-	if(DMFCBase->GetPlayerNum() == shooter->id)
+	if(DMFCBase->GetPlayerNum() == shooter->id && weapon_obj->id == MASSDRIVER_INDEX)
 	{
 		if(first_shot)
 		{
@@ -1596,7 +1596,7 @@ void OnClientPlayerEntersGame(int player_num)
 		}
 		else if (DMFCBase->GetLocalRole()==LR_SERVER)
 		{
-			shipShootIntervals[player_num] = (unsigned long)(ship->static_wb[6].gp_fire_wait[0]*1000000);
+			shipShootIntervals[player_num] = (unsigned long)((ship->static_wb[6].gp_fire_wait[0]-0.1)*1000000);
 		}
 	}
 			
@@ -2209,8 +2209,8 @@ void DisplayHUDScores(struct tHUDItem *hitem)
 
 					if(Anarchy_hud_display==AHD_EFFICIENCY){
 						float t = pr->dstats.kills[DSTAT_LEVEL]+pr->dstats.suicides[DSTAT_LEVEL]+pr->dstats.deaths[DSTAT_LEVEL];
-						float value = (float)(pr->dstats.kills[DSTAT_LEVEL])/((t)?t:0.0000001f);
-						DLLgrtext_Printf(score_x,y,"%.1f",value);
+						float value = (float)(pr->dstats.kills[DSTAT_LEVEL])/((t)?t:0.00001f);
+						DLLgrtext_Printf(score_x-10,y,"%.2f",value);
 					}else{
 						DLLgrtext_Printf(score_x,y,"%d",pr->dstats.kills[DSTAT_LEVEL]-pr->dstats.suicides[DSTAT_LEVEL]);
 					}
@@ -2240,8 +2240,8 @@ void DisplayHUDScores(struct tHUDItem *hitem)
 
 					if(Anarchy_hud_display==AHD_EFFICIENCY){
 						float t = pr->dstats.kills[DSTAT_LEVEL]+pr->dstats.suicides[DSTAT_LEVEL]+pr->dstats.deaths[DSTAT_LEVEL];
-						float value = (float)(pr->dstats.kills[DSTAT_LEVEL])/((t)?t:0.0000001f);
-						DLLgrtext_Printf(score_x,y,"%.1f",value);
+						float value = (float)(pr->dstats.kills[DSTAT_LEVEL])/((t)?t:0.00001f);
+						DLLgrtext_Printf(score_x-10,y,"%.2f",value);
 					}else{
 						DLLgrtext_Printf(score_x,y,"%d",pr->dstats.kills[DSTAT_LEVEL]-pr->dstats.suicides[DSTAT_LEVEL]);
 					}

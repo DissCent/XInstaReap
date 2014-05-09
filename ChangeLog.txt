@@ -1,3 +1,17 @@
+Revision 25
+===========
+
+-Efficiency is now displayed with a decimal place of 2
+
+
+Revision 24
+===========
+
+-Fix for black pyro's flares kicking the player because they are considered a
+ different weapon
+-Added shoot tolerance of 0.1s for anti cheat
+
+
 Revision 23
 ===========
 
