@@ -10,7 +10,7 @@ just one hit.
 What are the differences between XInstaReap and InstaReap?
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-XInstaReap currently has the following changes (as of version 23):
+XInstaReap currently has the following changes (as of version 25):
 
 Bugfixes:
 	-When shooting the first time, the weapon changes to the mass driver
